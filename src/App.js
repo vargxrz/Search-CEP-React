@@ -1,7 +1,7 @@
-import {FiSearch} from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
 import "./styles.css";
 import "./index.css";
-import {useState} from "react";
+import { useState } from "react";
 
 import api from "./services/api";
 
@@ -9,7 +9,9 @@ function App() {
     const [input, setInput] = useState("");
     const [cep, setCep] = useState({});
 
-    async function handleSearch() {
+    async function handleSearch(e) {
+        e.preventDefault();
+
         const formattedCep = input.replace("-", "");
 
         if (formattedCep === "") {
@@ -19,7 +21,6 @@ function App() {
 
         try {
             const response = await api.get(`${formattedCep}/json`);
-            console.log(response);
             setCep(response.data);
             setInput("");
         } catch {
@@ -31,18 +32,20 @@ function App() {
     return (
         <div className="container">
             <h1 className="title">Buscador CEP</h1>
-            <div className="containerInput">
+
+            <form className="containerInput" onSubmit={handleSearch}>
                 <input
                     type="text"
                     placeholder="Digite seu CEP..."
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
+                    autoComplete="off"
                 />
 
-                <button className="buttonSearch" onClick={handleSearch}>
-                    <FiSearch size={25} color="#FFF"/>
+                <button type="submit" className="buttonSearch">
+                    <FiSearch size={25} color="#FFF" />
                 </button>
-            </div>
+            </form>
 
             {Object.keys(cep).length > 0 && (
                 <main className="main">
