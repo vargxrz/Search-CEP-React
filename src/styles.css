@@ -13,6 +13,10 @@
     animation: flipTitle 0.5s;
 }
 
+.input{
+    outline: none;
+}
+
 @keyframes flipTitle {
     from {
         transform: rotateX(90deg);
