@@ -4,18 +4,16 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: linear-gradient(#121212, #212b46);
-    padding: 0 10px;
+    background: linear-gradient(#121212, #212b46)
 }
 
 .title {
     font-size: 85px;
     color: #FFF;
     animation: flipTitle 0.5s;
-    text-align: center;
 }
 
-.input {
+.input{
     outline: none;
 }
 
@@ -35,7 +33,6 @@
     display: flex;
     border-radius: 8px;
     box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.5);
-    width: 100%;
 }
 
 .containerInput input {
@@ -45,7 +42,6 @@
     color: #FFF;
     outline: none;
     margin-right: 8px;
-    width: 100%;
 }
 
 .containerInput input::placeholder {
@@ -74,19 +70,15 @@
     background-color: #FFF;
     width: 500px;
     border-radius: 8px;
-    padding: 20px;
 }
 
 .main h2 {
     margin: 16px 0;
     font-size: 39px;
 }
-
 .main span {
     margin-bottom: 16px;
     font-weight: bold;
-    font-size: 18px;
-    color: #333;
 }
 
 @media (max-width: 620px) {
