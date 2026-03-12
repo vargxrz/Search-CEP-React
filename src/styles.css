@@ -1,132 +1,524 @@
+
 .container {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: linear-gradient(#121212, #212b46)
+    background-color: var(--postal-cream);
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(139, 126, 106, 0.03) 2px,
+            rgba(139, 126, 106, 0.03) 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(139, 126, 106, 0.03) 2px,
+            rgba(139, 126, 106, 0.03) 4px
+        );
+    position: relative;
+    padding: 40px 20px;
+    overflow: hidden;
 }
 
-.title {
-    font-size: 85px;
-    color: #FFF;
-    animation: flipTitle 0.5s;
+/* Vintage Paper Grain Overlay */
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.5;
 }
 
-.input{
-    outline: none;
-}
-
-@keyframes flipTitle {
-    from {
-        transform: rotateX(90deg);
-    }
-    to {
-        transform: rotateX(0deg);
-    }
-}
-
-.containerInput {
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 15px;
-    margin: 34px 0;
-    display: flex;
+/* Decorative Corner Postal Marks */
+.container::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            var(--postal-red),
+            var(--postal-red) 8px,
+            var(--postal-navy) 8px,
+            var(--postal-navy) 16px
+        );
+    opacity: 0.15;
+    transform: rotate(45deg);
     border-radius: 8px;
-    box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.5);
+    animation: float 6s ease-in-out infinite;
 }
 
+@keyframes float {
+    0%, 100% { transform: rotate(45deg) translateY(0px); }
+    50% { transform: rotate(45deg) translateY(-10px); }
+}
+
+/* Main Title - Vintage Typewriter Style */
+.title {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 8vw, 95px);
+    color: var(--postal-ink);
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    animation: typewriterEntry 1s ease-out;
+    text-shadow: 
+        3px 3px 0px rgba(193, 39, 45, 0.15),
+        -1px -1px 0px rgba(255, 255, 255, 0.8);
+}
+
+/* Typewriter Entry Animation */
+@keyframes typewriterEntry {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+        letter-spacing: 20px;
+    }
+    70% {
+        letter-spacing: -2px;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 2px;
+    }
+}
+
+/* Subtitle Stamp Effect */
+.title::after {
+    content: 'SERVIÇO POSTAL';
+    position: absolute;
+    top: -35px;
+    right: -20px;
+    font-size: 12px;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--postal-red);
+    padding: 6px 16px;
+    border: 2px dashed var(--postal-red);
+    background: var(--postal-cream);
+    transform: rotate(12deg);
+    opacity: 0.7;
+    animation: stampAppear 0.6s 0.5s backwards;
+}
+
+@keyframes stampAppear {
+    0% {
+        transform: rotate(12deg) scale(0);
+        opacity: 0;
+    }
+    60% {
+        transform: rotate(12deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(12deg) scale(1);
+        opacity: 0.7;
+    }
+}
+
+/* Postal Card Input Container */
+.containerInput {
+    background: linear-gradient(135deg, #FFFFFF 0%, var(--postal-sepia) 100%);
+    padding: 20px 24px;
+    margin: 40px 0;
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+    box-shadow: 
+        0 4px 15px rgba(43, 43, 43, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        inset 0 -1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(139, 126, 106, 0.3);
+    position: relative;
+    min-width: 380px;
+    max-width: 500px;
+    animation: envelopeOpen 0.8s ease-out 0.3s backwards;
+}
+
+@keyframes envelopeOpen {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) rotateX(-15deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+    }
+}
+
+/* Airmail Stripe Decoration */
+.containerInput::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 20px;
+    right: 20px;
+    height: 8px;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--postal-red),
+        var(--postal-red) 12px,
+        var(--postal-navy) 12px,
+        var(--postal-navy) 24px
+    );
+}
+
+/* Vintage Stamp Corner */
+.containerInput::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 50px;
+    background: 
+        linear-gradient(135deg, var(--postal-red) 0%, #8B1E23 100%);
+    border-radius: 2px;
+    box-shadow: 
+        inset 0 0 10px rgba(0, 0, 0, 0.3),
+        2px 2px 5px rgba(0, 0, 0, 0.2);
+    /* Perforated edges */
+    mask-image: 
+        radial-gradient(circle at 0% 50%, transparent 2px, black 2.5px),
+        radial-gradient(circle at 100% 50%, transparent 2px, black 2.5px),
+        radial-gradient(circle at 50% 0%, transparent 2px, black 2.5px),
+        radial-gradient(circle at 50% 100%, transparent 2px, black 2.5px);
+    mask-size: 8px 100%, 8px 100%, 100% 8px, 100% 8px;
+    mask-position: 0% 50%, 100% 50%, 50% 0%, 50% 100%;
+    mask-repeat: repeat-y, repeat-y, repeat-x, repeat-x;
+    mask-composite: intersect;
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+/* Input Field Styling */
 .containerInput input {
     background-color: transparent;
     border: 0;
     font-size: 20px;
-    color: #FFF;
+    font-family: var(--font-serif);
+    color: var(--postal-ink);
     outline: none;
-    margin-right: 8px;
+    flex: 1;
+    padding: 8px 0;
+    letter-spacing: 0.5px;
 }
 
 .containerInput input::placeholder {
-    color: #F1F1F1;
+    color: var(--postal-fade);
+    font-style: italic;
+    opacity: 0.8;
 }
 
+/* Search Button - Vintage Postal Stamp */
 .buttonSearch {
-    background-color: transparent;
+    background: linear-gradient(145deg, var(--postal-red) 0%, #A01E23 100%);
     border: 0;
+    padding: 12px 16px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: transform 0.5s;
+    border-radius: 3px;
+    margin-left: 12px;
+    position: relative;
+    box-shadow: 
+        0 3px 8px rgba(193, 39, 45, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Stamp perforations */
+    clip-path: polygon(
+        0% 3%, 3% 3%, 3% 0%, 6% 0%, 6% 3%, 9% 3%, 9% 0%, 12% 0%, 12% 3%,
+        15% 3%, 15% 0%, 18% 0%, 18% 3%, 21% 3%, 21% 0%, 24% 0%, 24% 3%,
+        27% 3%, 27% 0%, 30% 0%, 30% 3%, 33% 3%, 33% 0%, 36% 0%, 36% 3%,
+        39% 3%, 39% 0%, 42% 0%, 42% 3%, 45% 3%, 45% 0%, 48% 0%, 48% 3%,
+        51% 3%, 51% 0%, 54% 0%, 54% 3%, 57% 3%, 57% 0%, 60% 0%, 60% 3%,
+        63% 3%, 63% 0%, 66% 0%, 66% 3%, 69% 3%, 69% 0%, 72% 0%, 72% 3%,
+        75% 3%, 75% 0%, 78% 0%, 78% 3%, 81% 3%, 81% 0%, 84% 0%, 84% 3%,
+        87% 3%, 87% 0%, 90% 0%, 90% 3%, 93% 3%, 93% 0%, 96% 0%, 96% 3%,
+        100% 3%, 100% 100%, 96% 100%, 96% 97%, 93% 97%, 93% 100%, 90% 100%,
+        90% 97%, 87% 97%, 87% 100%, 84% 100%, 84% 97%, 81% 97%, 81% 100%,
+        78% 100%, 78% 97%, 75% 97%, 75% 100%, 72% 100%, 72% 97%, 69% 97%,
+        69% 100%, 66% 100%, 66% 97%, 63% 97%, 63% 100%, 60% 100%, 60% 97%,
+        57% 97%, 57% 100%, 54% 100%, 54% 97%, 51% 97%, 51% 100%, 48% 100%,
+        48% 97%, 45% 97%, 45% 100%, 42% 100%, 42% 97%, 39% 97%, 39% 100%,
+        36% 100%, 36% 97%, 33% 97%, 33% 100%, 30% 100%, 30% 97%, 27% 97%,
+        27% 100%, 24% 100%, 24% 97%, 21% 97%, 21% 100%, 18% 100%, 18% 97%,
+        15% 97%, 15% 100%, 12% 100%, 12% 97%, 9% 97%, 9% 100%, 6% 100%,
+        6% 97%, 3% 97%, 3% 100%, 0% 100%
+    );
 }
 
 .buttonSearch:hover {
-    transform: scale(1.2);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 15px rgba(193, 39, 45, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.3);
 }
 
+.buttonSearch:active {
+    transform: translateY(0);
+    box-shadow: 
+        0 2px 5px rgba(193, 39, 45, 0.3),
+        inset 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Postal Cancellation Animation */
+@keyframes stampPress {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        transform: scale(0.95) rotate(-3deg);
+    }
+}
+
+.buttonSearch:active {
+    animation: stampPress 0.3s ease;
+}
+
+/* Results Card - Official Postal Document */
 .main {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
-    background-color: #FFF;
-    width: 500px;
-    border-radius: 8px;
+    background: 
+        linear-gradient(to bottom, #FFFFFF 0%, #FDFBF7 100%);
+    width: 100%;
+    max-width: 500px;
+    padding: 35px 40px;
+    border-radius: 2px;
+    border: 2px solid var(--postal-brown);
+    position: relative;
+    box-shadow: 
+        0 8px 25px rgba(43, 43, 43, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    animation: documentReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.main h2 {
-    margin: 16px 0;
-    font-size: 39px;
+@keyframes documentReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) rotateX(15deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotateX(0deg);
+    }
 }
-.main span {
-    margin-bottom: 16px;
+
+/* Postal Cancellation Mark */
+.main::before {
+    content: 'VALIDADO';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-family: var(--font-display);
+    font-size: 11px;
     font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--postal-red);
+    padding: 8px 14px;
+    border: 2px solid var(--postal-red);
+    border-radius: 50%;
+    transform: rotate(15deg);
+    opacity: 0.4;
+    animation: cancelStamp 0.5s 0.3s backwards;
 }
+
+@keyframes cancelStamp {
+    0% {
+        transform: rotate(15deg) scale(0);
+        opacity: 0;
+    }
+    60% {
+        transform: rotate(12deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(15deg) scale(1);
+        opacity: 0.4;
+    }
+}
+
+/* Decorative Postal Lines */
+.main::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--postal-navy),
+        var(--postal-navy) 3px,
+        transparent 3px,
+        transparent 8px
+    );
+    opacity: 0.15;
+}
+
+/* CEP Number Display */
+.main h2 {
+    margin: 0 0 20px 0;
+    font-size: 42px;
+    font-family: var(--font-title);
+    color: var(--postal-navy);
+    letter-spacing: 3px;
+    font-weight: 400;
+    text-shadow: 2px 2px 0px rgba(193, 39, 45, 0.1);
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.main h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--postal-gold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+/* Address Information */
+.main span {
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-family: var(--font-serif);
+    color: var(--postal-ink);
+    line-height: 1.6;
+    font-weight: 400;
+    position: relative;
+    padding-left: 20px;
+}
+
+.main span::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--postal-red);
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+.main span:last-child {
+    font-weight: 600;
+    color: var(--postal-navy);
+    margin-top: 8px;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
 
 @media (max-width: 620px) {
     .title {
-        font-size: 50px;
+        font-size: 48px;
+        letter-spacing: 1px;
+    }
+    
+    .title::after {
+        font-size: 10px;
+        padding: 4px 10px;
+        top: -30px;
+        right: -10px;
     }
 
-    .main h2 {
-        font-size: 28px;
-    }
-
-    .main {
-        width: 70%;
-        min-height: 250px;
-        padding: 10px;
-    }
-
-    .containerInput input {
-        font-size: 14px;
-    }
-
-    .buttonSearch {
-        padding: 8px;
-    }
-
-    .main span {
-        font-size: 18px;
-    }
-}
-
-@media (max-width: 400px) {
-    .title {
-        font-size: 40px;
-    }
-
-    .main {
-        width: 70%;
-    }
-
-    .main h2 {
-        font-size: 24px;
+    .containerInput {
+        min-width: 90%;
+        max-width: 90%;
+        padding: 16px 18px;
     }
 
     .containerInput input {
         font-size: 16px;
     }
 
+    .buttonSearch {
+        padding: 10px 14px;
+    }
+
+    .main {
+        width: 90%;
+        padding: 28px 30px;
+    }
+
+    .main h2 {
+        font-size: 32px;
+        letter-spacing: 2px;
+    }
+
     .main span {
-        font-size: 14px;
+        font-size: 16px;
+        padding-left: 16px;
+    }
+}
+
+@media (max-width: 400px) {
+    .container {
+        padding: 30px 15px;
+    }
+
+    .title {
+        font-size: 38px;
+    }
+    
+    .title::after {
+        font-size: 9px;
+        padding: 3px 8px;
+    }
+
+    .containerInput {
+        padding: 14px 16px;
+        min-width: 95%;
+    }
+
+    .containerInput input {
+        font-size: 15px;
+    }
+
+    .buttonSearch {
+        padding: 8px 12px;
+    }
+
+    .main {
+        width: 95%;
+        padding: 24px 25px;
+    }
+
+    .main h2 {
+        font-size: 28px;
+        margin-bottom: 16px;
+    }
+
+    .main span {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+    
+    .container::after {
+        width: 60px;
+        height: 60px;
     }
 }

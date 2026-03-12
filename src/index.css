@@ -1,5 +1,28 @@
+:root {
+  /* Retro Postal Color Palette */
+  --postal-cream: #F4EBD9;
+  --postal-red: #C1272D;
+  --postal-navy: #1F3A5F;
+  --postal-gold: #D4AF37;
+  --postal-brown: #5D4E37;
+  --postal-sepia: #DFD5C3;
+  --postal-ink: #2B2B2B;
+  --postal-fade: #8B7E6A;
+  
+  /* Typography */
+  --font-display: 'Special Elite', 'Courier New', monospace;
+  --font-serif: 'Crimson Text', 'Georgia', serif;
+  --font-title: 'DM Serif Display', serif;
+}
+
 * {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
